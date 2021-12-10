@@ -1,4 +1,4 @@
-import nanoid from 'nanoid/non-secure'
+// import nanoid from 'nanoid/non-secure'
 import FileUpload from '../FileUpload'
 
 /**
@@ -305,7 +305,7 @@ export function has (ctx, prop) {
  */
 export function setId (o, id) {
   if (!has(o, '__id') || id) {
-    return Object.defineProperty(o, '__id', Object.assign(Object.create(null), { value: id || nanoid(9) }))
+    return Object.defineProperty(o, '__id', Object.assign(Object.create(null), { value: id || Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 9) }))
   }
   return o
 }

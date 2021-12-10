@@ -1,4 +1,3 @@
-// import nanoid from 'nanoid/non-secure'
 import FileUpload from '../FileUpload'
 
 /**

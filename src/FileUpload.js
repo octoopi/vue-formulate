@@ -1,4 +1,3 @@
-// import nanoid from 'nanoid/non-secure'
 import { setId } from './libs/utils'
 
 /**
@@ -62,7 +61,7 @@ class FileUpload {
   addFileList (fileList) {
     for (let i = 0; i < fileList.length; i++) {
       const file = fileList[i]
-      const uuid = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5); // nanoid()
+      const uuid = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
       const removeFile = function () {
         this.removeFile(uuid)
       }

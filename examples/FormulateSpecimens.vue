@@ -1,17 +1,12 @@
 <template>
-  <div
-    v-if="testKey"
-    id="app"
-  >
+  <div v-if="testKey" id="app">
     <FormulateForm
       :key="testKey"
       ref="testForm"
       name="testForm"
       @submit="submission"
     >
-      <div
-        class="proving-ground"
-      >
+      <div class="proving-ground">
         <div class="proving-ground-stage">
           <component
             :is="test.component"
@@ -24,11 +19,7 @@
       </div>
     </FormulateForm>
   </div>
-  <div
-    v-else
-    id="app"
-    class="specimen-list"
-  >
+  <div v-else id="app" class="specimen-list">
     <SpecimenButton />
     <SpecimenBox />
     <SpecimenFile />
@@ -41,19 +32,18 @@
 </template>
 
 <script>
-import { has } from '../src/libs/utils'
-import nanoid from 'nanoid/non-secure'
-import SpecimenText from './specimens/SpecimenText'
-import SpecimenTextarea from './specimens/SpecimenTextarea'
-import SpecimenGroup from './specimens/SpecimenGroup'
-import SpecimenFile from './specimens/SpecimenFile'
-import SpecimenButton from './specimens/SpecimenButton'
-import SpecimenBox from './specimens/SpecimenBox'
-import SpecimenSlider from './specimens/SpecimenSlider'
-import SpecimenSelect from './specimens/SpecimenSelect'
+import { has } from "../src/libs/utils";
+import SpecimenText from "./specimens/SpecimenText";
+import SpecimenTextarea from "./specimens/SpecimenTextarea";
+import SpecimenGroup from "./specimens/SpecimenGroup";
+import SpecimenFile from "./specimens/SpecimenFile";
+import SpecimenButton from "./specimens/SpecimenButton";
+import SpecimenBox from "./specimens/SpecimenBox";
+import SpecimenSlider from "./specimens/SpecimenSlider";
+import SpecimenSelect from "./specimens/SpecimenSelect";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     SpecimenButton,
     SpecimenBox,
@@ -62,55 +52,57 @@ export default {
     SpecimenGroup,
     SpecimenFile,
     SpecimenSlider,
-    SpecimenSelect
+    SpecimenSelect,
   },
-  data () {
+  data() {
     return {
       testKey: false,
       provingGroundValue: null,
-      provingGroundSubmissionResolver: () => {}
-    }
+      provingGroundSubmissionResolver: () => {},
+    };
   },
-  mounted () {
-    window.showTest = this.showTest.bind(this)
-    window.getInputValue = this.inputValue.bind(this)
-    window.getSubmittedValue = this.submittedValue.bind(this)
-    window.submitForm = this.submitForm.bind(this)
-    window.getVueInstance = () => this
+  mounted() {
+    window.showTest = this.showTest.bind(this);
+    window.getInputValue = this.inputValue.bind(this);
+    window.getSubmittedValue = this.submittedValue.bind(this);
+    window.submitForm = this.submitForm.bind(this);
+    window.getVueInstance = () => this;
   },
   methods: {
-    showTest (data) {
+    showTest(data) {
       if (data.component) {
-        this.testKey = nanoid(5)
-        this.test = data
-        if (has(data, 'value')) {
-          this.provingGroundValue = data.value
+        this.testKey = Math.random()
+          .toString(36)
+          .replace(/[^a-z]+/g, "");
+        this.test = data;
+        if (has(data, "value")) {
+          this.provingGroundValue = data.value;
         }
       } else {
-        this.testKey = false
+        this.testKey = false;
       }
     },
-    inputValue () {
-      return this.provingGroundValue
+    inputValue() {
+      return this.provingGroundValue;
     },
-    submission (data) {
-      this.provingGroundSubmissionResolver(data)
+    submission(data) {
+      this.provingGroundSubmissionResolver(data);
     },
-    submittedValue () {
-      return new Promise(resolve => {
-        this.provingGroundSubmissionResolver = resolve
-        this.submitForm()
-      })
+    submittedValue() {
+      return new Promise((resolve) => {
+        this.provingGroundSubmissionResolver = resolve;
+        this.submitForm();
+      });
     },
-    submitForm () {
-      this.$refs.testForm.formSubmitted()
-    }
-  }
-}
+    submitForm() {
+      this.$refs.testForm.formSubmitted();
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-@import '../themes/snow/snow.scss';
+@import "../themes/snow/snow.scss";
 body {
   margin: 0;
   padding: 0;
@@ -122,7 +114,7 @@ h2 {
   position: sticky;
   top: 0;
   background-color: white;
-  padding: .5em 0;
+  padding: 0.5em 0;
   color: $formulate-green;
   border-bottom: 1px solid $formulate-gray;
   margin: 2em 0 0 0;
@@ -135,7 +127,6 @@ h2 {
   @media (min-width: 756px) {
     padding: 2em;
   }
-
 }
 .specimens {
   @media (min-width: 500px) {
@@ -187,7 +178,6 @@ h2 {
     width: 50%;
     & > * {
       width: 300px;
-
     }
   }
   &-values {
